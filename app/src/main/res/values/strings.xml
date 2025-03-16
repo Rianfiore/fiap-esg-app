@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">CompareJa</string>
+    <!-- Título e textos gerais -->
+    <string name="app_name">CompareJá</string>
 </resources>

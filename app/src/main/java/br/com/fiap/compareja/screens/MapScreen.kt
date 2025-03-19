@@ -74,13 +74,13 @@ fun MapScreen(modifier: Modifier = Modifier) {
             Spacer(modifier = Modifier.height(16.dp)) // Espaço entre botão e imagem
 
             // 📌 Imagem abaixo do botão
-            val image: Painter = painterResource(id = R.drawable.img_1)
+            val image: Painter = painterResource(id = R.drawable.map)
             androidx.compose.foundation.Image(
                 painter = image,
                 contentDescription = "Mapa",
                 modifier = Modifier
-                    .width(250.dp)
-                    .height(250.dp)
+                    .width(400.dp)
+                    .height(500.dp)
             )
         }
 

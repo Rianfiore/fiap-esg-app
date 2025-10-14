@@ -1,0 +1,64 @@
+version: '3.8'
+
+services:
+  # Serviço principal para build do Android
+  android-builder:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: compareja-android-builder
+    volumes:
+      - .:/app
+      - gradle-cache:/root/.gradle
+      - android-sdk-cache:/opt/android-sdk
+    environment:
+      - ANDROID_HOME=/opt/android-sdk
+      - ANDROID_SDK_ROOT=/opt/android-sdk
+    working_dir: /app
+    command: ["./gradlew", "assembleDebug", "testDebugUnitTest"]
+
+  # Serviço para testes instrumentados (opcional - requer emulador)
+  android-tester:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: compareja-android-tester
+    volumes:
+      - .:/app
+      - gradle-cache:/root/.gradle
+      - android-sdk-cache:/opt/android-sdk
+    environment:
+      - ANDROID_HOME=/opt/android-sdk
+      - ANDROID_SDK_ROOT=/opt/android-sdk
+    working_dir: /app
+    command: ["./gradlew", "connectedAndroidTest"]
+    depends_on:
+      - android-builder
+
+  # Serviço para geração de relatórios
+  report-generator:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: compareja-report-generator
+    volumes:
+      - .:/app
+      - gradle-cache:/root/.gradle
+      - android-sdk-cache:/opt/android-sdk
+    environment:
+      - ANDROID_HOME=/opt/android-sdk
+      - ANDROID_SDK_ROOT=/opt/android-sdk
+    working_dir: /app
+    command: ["./gradlew", "jacocoTestReport"]
+    depends_on:
+      - android-builder
+
+volumes:
+  gradle-cache:
+    driver: local
+  android-sdk-cache:
+    driver: local
+
+networks:
+  default:
+    name: compareja-network

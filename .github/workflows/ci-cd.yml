@@ -140,7 +140,7 @@ jobs:
 
   # 3️⃣ DEPLOY (depende do build e tests)
   deploy:
-    name: 🚀 Deploy to Firebase
+    name: 🚀 Deploy APKs
     runs-on: ubuntu-latest
     needs: [build, tests]
     if: github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/main'
@@ -155,41 +155,21 @@ jobs:
         name: ${{ github.ref == 'refs/heads/develop' && 'app-debug-apk' || 'app-release-apk' }}
         path: ./apk/
         
-    - name: 🔧 Setup Firebase CLI
-      run: |
-        npm install -g firebase-tools
-        
-    - name: 🔐 Firebase Authentication
-      env:
-        FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-      run: |
-        firebase login --token $FIREBASE_TOKEN
-        
-    - name: 🚀 Deploy to Firebase App Distribution
-      env:
-        FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-      run: |
-        if [ "${{ github.ref }}" == "refs/heads/develop" ]; then
-          echo "🚀 Deploying to STAGING..."
-          firebase appdistribution:distribute ./apk/app-debug.apk \
-            --app ${{ secrets.FIREBASE_APP_ID_STAGING }} \
-            --groups "testers" \
-            --release-notes "🚀 Staging Build - $(date +'%Y-%m-%d %H:%M:%S') - Branch: ${{ github.ref_name }}"
-        else
-          echo "🚀 Deploying to PRODUCTION..."
-          firebase appdistribution:distribute ./apk/app-release.apk \
-            --app ${{ secrets.FIREBASE_APP_ID_PRODUCTION }} \
-            --groups "production-testers" \
-            --release-notes "🚀 Production Build - $(date +'%Y-%m-%d %H:%M:%S') - Branch: ${{ github.ref_name }}"
-        fi
+    - name: 📤 Upload APK para Download
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ github.ref == 'refs/heads/develop' && 'app-staging' || 'app-production' }}-${{ github.sha }}
+        path: ./apk/
+        retention-days: 30
         
     - name: 📊 Deploy Summary
       run: |
         if [ "${{ github.ref }}" == "refs/heads/develop" ]; then
           echo "✅ Deploy para STAGING concluído!"
-          echo "📱 APK enviado para grupo: testers"
+          echo "📱 APK disponível para download: app-staging-${{ github.sha }}"
+          echo "🔗 Acesse: Actions → Artifacts"
         else
           echo "✅ Deploy para PRODUÇÃO concluído!"
-          echo "📱 APK enviado para grupo: production-testers"
+          echo "📱 APK disponível para download: app-production-${{ github.sha }}"
+          echo "🔗 Acesse: Actions → Artifacts"
         fi
-        echo "🔗 Link: https://console.firebase.google.com/project/${{ secrets.FIREBASE_PROJECT_ID }}/appdistribution"

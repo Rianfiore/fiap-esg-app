@@ -11,7 +11,7 @@ O **CompareJa** é uma aplicação Android desenvolvida em Kotlin com Jetpack Co
 - **Testes:** JUnit + Espresso
 - **CI/CD:** GitHub Actions
 - **Containerização:** Docker + Docker Compose
-- **Deploy:** Firebase App Distribution
+- **Deploy:** GitHub Artifacts (APK downloads)
 
 ## 🚀 Como Executar Localmente com Docker
 
@@ -84,13 +84,13 @@ docker-compose run report-generator
 
 2. **Deploy Staging** (trigger: branch develop)
    - Download do APK debug
-   - Deploy para Firebase App Distribution
-   - Notificação para grupo de testers
+   - Upload como artefato para download
+   - Disponível em Actions → Artifacts
 
 3. **Deploy Produção** (trigger: branch main)
    - Download do APK release
-   - Deploy para Firebase App Distribution
-   - Notificação para grupo de produção
+   - Upload como artefato para download
+   - Disponível em Actions → Artifacts
 
 4. **Relatórios** (sempre executado)
    - Geração de relatório de cobertura
@@ -98,10 +98,9 @@ docker-compose run report-generator
 
 ### Configuração Necessária
 
-Configure os seguintes secrets no GitHub:
-- `FIREBASE_TOKEN`: Token de autenticação do Firebase
-- `FIREBASE_APP_ID_STAGING`: ID do app para staging
-- `FIREBASE_APP_ID_PRODUCTION`: ID do app para produção
+**Nenhuma configuração adicional necessária!** 
+- Os APKs são automaticamente disponibilizados como artefatos
+- Acesse em: **Actions** → **Artifacts** → **Download**
 
 ## 🐳 Containerização
 

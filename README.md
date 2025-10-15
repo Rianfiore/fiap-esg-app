@@ -224,15 +224,11 @@ docker-compose --version
 
 ## 👥 Equipe
 
-- **Rian Barbosa Fiore da Camara** - Desenvolvimento
-- **Tiago Henrique Ramos da Silva** - DevOps
-- **Erick Matheus da Silva Calixto** - Testes
-- **Bruno Rodrigues Rocha** - Documentação
+- **Rian Barbosa Fiore da Camara**
+- **Tiago Henrique Ramos da Silva**
+- **Erick Matheus da Silva Calixto**
+- **Bruno Rodrigues Rocha**
 
 ## 📄 Licença
 
-Este projeto é parte do curso FIAP - Fase 6 DevOps.
-
----
-
-**Última atualização:** $(date)
+Este projeto é parte do curso FIAP - Fase 6 DevOps.d

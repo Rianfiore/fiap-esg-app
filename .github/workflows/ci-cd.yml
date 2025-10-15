@@ -174,11 +174,11 @@ jobs:
           echo "🔗 Acesse: Actions → Artifacts"
         fi
 
-  # 4️⃣ RELEASE (depende do deploy)
+  # 4️⃣ RELEASE (depende do build)
   release:
     name: 🏷️ Create GitHub Release
     runs-on: ubuntu-latest
-    needs: [build, tests, deploy]
+    needs: [build, tests]
     if: github.ref == 'refs/heads/main'
     
     steps:
@@ -188,7 +188,7 @@ jobs:
     - name: 📥 Download Production APK
       uses: actions/download-artifact@v4
       with:
-        name: app-production-${{ github.sha }}
+        name: app-release-apk
         path: ./release/
         
     - name: 🏷️ Create GitHub Release

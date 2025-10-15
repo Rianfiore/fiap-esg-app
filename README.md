@@ -96,11 +96,17 @@ docker-compose run report-generator
    - Geração de relatório de cobertura
    - Upload de relatórios como artefatos
 
+5. **Release** (apenas produção)
+   - Criação automática de GitHub Release
+   - APK anexado para download
+   - Tag de versão automática
+
 ### Configuração Necessária
 
 **Nenhuma configuração adicional necessária!** 
 - Os APKs são automaticamente disponibilizados como artefatos
-- Acesse em: **Actions** → **Artifacts** → **Download**
+- **Staging:** Acesse em **Actions** → **Artifacts** → **Download**
+- **Produção:** Acesse em **Releases** → **Latest Release** → **Download APK**
 
 ## 🐳 Containerização
 

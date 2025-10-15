@@ -10,7 +10,7 @@
 | ☑️ | **Pipeline com etapas de build, teste e deploy** | ✅ | GitHub Actions com 4 jobs |
 | ☑️ | **README.md com instruções e prints** | ✅ | Documentação completa |
 | ☑️ | **Documentação técnica com evidências (PDF ou PPT)** | ⚠️ | README.md detalhado (PDF pode ser gerado) |
-| ☑️ | **Deploy realizado nos ambientes staging e produção** | ✅ | APKs disponíveis como artefatos do GitHub |
+| ☑️ | **Deploy realizado nos ambientes staging e produção** | ✅ | APKs + Releases automáticas no GitHub |
 
 ## 📁 Estrutura de Arquivos Entregues
 
